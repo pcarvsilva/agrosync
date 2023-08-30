@@ -58,6 +58,8 @@ if config_env() == :prod do
     hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
     serializer: Oinc.Serialization.EncryptedJsonSerializer
 
+  raise "ERROR"
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix
