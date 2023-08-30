@@ -10,7 +10,7 @@ if config_env() == :prod do
   config :recomendation_front, RecomendationFront.Repo,
     adapter: Ecto.Adapters.Postgres,
     url:
-      "postgresql://postgres@postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
+      "postgresql://postgres:postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
     database: "database",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
