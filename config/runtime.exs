@@ -19,12 +19,7 @@ if config_env() == :prod do
     url:
       "postgresql://postgres@postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
     database: "database",
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    ssl_opts: [
-      cacertfile: "cert/ca-key.pem",
-      certfile: "cert/ca-cert.pem",
-      keyfile: "cert/ca-cert.pem"
-    ]
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -50,16 +45,10 @@ if config_env() == :prod do
     secret_key_base: secret_key_base
 
   config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
-    ssl: true,
     serializer: Commanded.Serialization.JsonSerializer,
     url:
       "postgresql://postgres:postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/event_store",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    ssl_opts: [
-      cacertfile: "cert/ca-key.pem",
-      certfile: "cert/ca-cert.pem",
-      keyfile: "cert/ca-cert.pem"
-    ]
 
   # ## Using releases
   #
