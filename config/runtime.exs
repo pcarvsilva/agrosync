@@ -43,6 +43,18 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  event_store_url =
+    System.get_env("DATABASE_URL") ||
+      raise """
+      environment variable DATABASE_URL is missing.
+      For example: ecto://USER:PASS@HOST/DATABASE
+      """
+
+  config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
+    serializer: Commanded.Serialization.JsonSerializer,
+    url: event_store_url,
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix
