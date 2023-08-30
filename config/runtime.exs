@@ -23,7 +23,8 @@ if config_env() == :prod do
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     ssl_opts: [
       cacertfile: "cert/ca-key.pem",
-      certfile: "cert/ca-cert.pem"
+      certfile: "cert/ca-cert.pem",
+      keyfile: "cert/ca-cert.pem"
     ]
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
@@ -57,7 +58,8 @@ if config_env() == :prod do
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     ssl_opts: [
       cacertfile: "cert/ca-key.pem",
-      certfile: "cert/ca-cert.pem"
+      certfile: "cert/ca-cert.pem",
+      keyfile: "cert/ca-cert.pem"
     ]
 
   # ## Using releases
