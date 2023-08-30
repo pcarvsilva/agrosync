@@ -21,6 +21,12 @@ if config_env() == :prod do
     ssl: true,
     database: "database",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+    ssl_opts: [
+      cacertfile: "/path/to/ca_certificate.pem",
+      certfile: "/path/to/client_certificate.pem",
+      keyfile: "/path/to/client_key.pem",
+      password: "client_key_password"
+    ]
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -51,6 +57,10 @@ if config_env() == :prod do
     url:
       "postgresql://postgres:postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/event_store",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+    ssl_opts: [
+      cacertfile: "/cert/ca_key.pem",
+      certfile: "/cet/ca_cert.pem"
+    ]
 
   # ## Using releases
   #
