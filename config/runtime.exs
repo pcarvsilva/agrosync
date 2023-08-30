@@ -17,6 +17,7 @@ if config_env() == :prod do
   config :recomendation_front, RecomendationFront.Repo,
     adapter: Ecto.Adapters.Postgres,
     username: "postgres",
+    host: "postgres",
     password: "postgres",
     database: "database",
     hostname: "prod.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
