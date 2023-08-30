@@ -20,8 +20,9 @@ if config_env() == :prod do
     username: "postgres",
     password: "postgres",
     database: "database",
-    hostname: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    show_sensitive_data_on_connection_error: true
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -51,8 +52,9 @@ if config_env() == :prod do
     username: "postgres",
     password: "postgres",
     database: "event_store_database",
-    hostname: database_url,
-    ssl: true
+    hostname: "database.cbfv9kxxicuy.sa - east - 1.rds.amazonaws.com",
+    ssl: true,
+    show_sensitive_data_on_connection_error: true
 
   # ## Using releases
   #
