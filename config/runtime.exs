@@ -17,7 +17,10 @@ if config_env() == :prod do
   config :recomendation_front, RecomendationFront.Repo,
     ssl: true,
     socket_options: [:inet6],
-    url: database_url,
+    username: "postgres",
+    password: "postgres",
+    database: "database",
+    hostname: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
@@ -43,16 +46,12 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
-  event_store_url =
-    System.get_env("EVENT_STORE_DATABASE_URL") ||
-      raise """
-      environment variable EVENT_STORE_DATABASE_URL is missing.
-      For example: ecto://USER:PASS@HOST/DATABASE
-      """
-
   config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
     serializer: Commanded.Serialization.JsonSerializer,
-    url: event_store_url,
+    username: "postgres",
+    password: "postgres",
+    database: "event_store_database",
+    hostname: database_url,
     ssl: true
 
   # ## Using releases
