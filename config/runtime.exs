@@ -7,13 +7,6 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 if config_env() == :prod do
-  database_url =
-    System.get_env("DATABASE_URL") ||
-      raise """
-      environment variable DATABASE_URL is missing.
-      For example: ecto://USER:PASS@HOST/DATABASE
-      """
-
   config :recomendation_front, RecomendationFront.Repo,
     adapter: Ecto.Adapters.Postgres,
     url:
@@ -48,7 +41,7 @@ if config_env() == :prod do
     serializer: Commanded.Serialization.JsonSerializer,
     url:
       "postgresql://postgres:postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/event_store",
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
   # ## Using releases
   #
