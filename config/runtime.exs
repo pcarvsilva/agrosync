@@ -18,7 +18,7 @@ if config_env() == :prod do
     adapter: Ecto.Adapters.Postgres,
     url:
       "postgresql://postgres@postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
-    ssl: true,
+    ssl: false,
     database: "database",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
