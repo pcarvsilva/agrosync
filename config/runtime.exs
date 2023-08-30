@@ -16,10 +16,11 @@ if config_env() == :prod do
 
   config :recomendation_front, RecomendationFront.Repo,
     ssl: true,
+    socket_options: [:inet6],
     username: "postgres",
     password: "postgres",
     database: "database",
-    hostname: "postgresql://database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
+    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     show_sensitive_data_on_connection_error: true
 
@@ -51,7 +52,7 @@ if config_env() == :prod do
     username: "postgres",
     password: "postgres",
     database: "event_store_database",
-    hostname: "postgresql://database.cbfv9kxxicuy.sa - east - 1.rds.amazonaws.com",
+    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
     ssl: true,
     show_sensitive_data_on_connection_error: true
 
