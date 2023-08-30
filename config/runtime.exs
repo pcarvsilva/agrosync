@@ -18,13 +18,13 @@ if config_env() == :prod do
     ssl: false,
     socket_options: [:inet6],
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    show_sensitive_data_on_connection_error: true
+    show_sensitive_data_on_connection_error: true,
     username: "postgres",
     password: "postgres",
     database: "database",
     pool_size: 20,
-    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
-    
+    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com"
+
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
   # want to use a different value for prod and you most likely don't want
