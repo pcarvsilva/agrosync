@@ -56,8 +56,8 @@ if config_env() == :prod do
     password: "postgres",
     database: "event_store",
     pool_size: 20,
-    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
-    
+    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com"
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix
