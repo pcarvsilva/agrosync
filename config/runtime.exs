@@ -16,7 +16,8 @@ if config_env() == :prod do
 
   config :recomendation_front, RecomendationFront.Repo,
     adapter: Ecto.Adapters.Postgres,
-    url: "postgresql://postgres:postgres@prod.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
+    url:
+      "postgresql://postgres:postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
     ssl: false,
     database: "database",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
@@ -47,7 +48,8 @@ if config_env() == :prod do
   config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
     ssl: false,
     serializer: Commanded.Serialization.JsonSerializer,
-    url: "postgresql://postgres:postgres@prod.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
+    url:
+      "postgresql://postgres:postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/event_store",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
   # ## Using releases
