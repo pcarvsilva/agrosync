@@ -15,10 +15,10 @@ if config_env() == :prod do
       """
 
   config :recomendation_front, RecomendationFront.Repo,
-    ssl: true,
+    ssl: falses,
     socket_options: [:inet6],
     url:
-      "postgresql://postgres:Juliana!22@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/event_store",
+      "postgresql://postgres:Juliana!22@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     show_sensitive_data_on_connection_error: true
 
@@ -47,12 +47,13 @@ if config_env() == :prod do
 
   config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
     serializer: Commanded.Serialization.JsonSerializer,
-    username: "postgres",
-    password: "postgres",
-    database: "event_store_database",
-    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
-    ssl: true,
-    show_sensitive_data_on_connection_error: true
+    types: EventStore.PostgresTypes,
+    username: System.get_env("EVENT_STORE_USER_NAME"),
+    password: System.get_env("EVENT_STORE_PASSWORD"),
+    database: "event_store",
+    pool_size: 20,
+    hostname: System.get_env("EVENT_STORE_HOSTNAME"),
+    serializer: Oinc.Serialization.EncryptedJsonSerializer
 
   # ## Using releases
   #
