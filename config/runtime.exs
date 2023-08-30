@@ -50,6 +50,8 @@ if config_env() == :prod do
     url: "postgresql://postgres:postgres@prod.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
+  raise "ERROR"
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix
