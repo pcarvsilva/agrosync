@@ -45,12 +45,8 @@ if config_env() == :prod do
   config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
     ssl: false,
     serializer: Commanded.Serialization.JsonSerializer,
-    adapter: Ecto.Adapters.Postgres,
-    username: "postgres",
-    password: "postgres",
-    database: "event_store",
-    pool_size: 20,
-    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com"
+    url: "postgresql://postgres:postgres@prod.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
   # ## Using releases
   #
