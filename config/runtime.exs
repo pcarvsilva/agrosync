@@ -44,9 +44,9 @@ if config_env() == :prod do
     secret_key_base: secret_key_base
 
   event_store_url =
-    System.get_env("DATABASE_URL") ||
+    System.get_env("EVENT_STORE_DATABASE_URL") ||
       raise """
-      environment variable DATABASE_URL is missing.
+      environment variable EVENT_STORE_DATABASE_URL is missing.
       For example: ecto://USER:PASS@HOST/DATABASE
       """
 
