@@ -18,7 +18,7 @@ if config_env() == :prod do
     adapter: Ecto.Adapters.Postgres,
     url:
       "postgresql://postgres@postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
-    ssl: false,
+    ssl: true,
     database: "database",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
@@ -46,7 +46,7 @@ if config_env() == :prod do
     secret_key_base: secret_key_base
 
   config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
-    ssl: false,
+    ssl: true,
     serializer: Commanded.Serialization.JsonSerializer,
     url:
       "postgresql://postgres:postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/event_store",
