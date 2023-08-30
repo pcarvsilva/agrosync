@@ -17,11 +17,14 @@ if config_env() == :prod do
   config :recomendation_front, RecomendationFront.Repo,
     ssl: false,
     socket_options: [:inet6],
-    url:
-      "postgresql://postgres:Juliana!22@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     show_sensitive_data_on_connection_error: true
-
+    username: "postgres",
+    password: "postgres",
+    database: "database",
+    pool_size: 20,
+    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
+    
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
   # want to use a different value for prod and you most likely don't want
@@ -48,11 +51,11 @@ if config_env() == :prod do
   config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
     serializer: Commanded.Serialization.JsonSerializer,
     types: EventStore.PostgresTypes,
-    username: System.get_env("EVENT_STORE_USER_NAME"),
-    password: System.get_env("EVENT_STORE_PASSWORD"),
+    username: "postgres",
+    password: "postgres",
     database: "event_store",
     pool_size: 20,
-    hostname: System.get_env("EVENT_STORE_HOSTNAME"),
+    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
     serializer: Oinc.Serialization.EncryptedJsonSerializer
 
   # ## Using releases
