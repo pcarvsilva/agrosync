@@ -49,16 +49,15 @@ if config_env() == :prod do
     secret_key_base: secret_key_base
 
   config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
+    ssl: false,
     serializer: Commanded.Serialization.JsonSerializer,
-    types: EventStore.PostgresTypes,
     adapter: Ecto.Adapters.Postgres,
     username: "postgres",
     password: "postgres",
     database: "event_store",
     pool_size: 20,
     hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
-    serializer: Oinc.Serialization.EncryptedJsonSerializer
-
+    
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix
