@@ -20,9 +20,7 @@ if config_env() == :prod do
     password: "postgres",
     database: "database",
     hostname: "prod.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    ssl: true,
-    socket_options: [:inet6]
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
