@@ -15,7 +15,7 @@ if config_env() == :prod do
       """
 
   config :recomendation_front, RecomendationFront.Repo,
-    ssl: falses,
+    ssl: false,
     socket_options: [:inet6],
     url:
       "postgresql://postgres:Juliana!22@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
