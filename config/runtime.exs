@@ -16,7 +16,7 @@ if config_env() == :prod do
 
   config :recomendation_front, RecomendationFront.Repo,
     adapter: Ecto.Adapters.Postgres,
-    url: "https://postgres:postgres@prod.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database:443",
+    url: "https://postgres:postgres@prod.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database:5432",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     ssl: true,
     socket_options: [:inet6]
