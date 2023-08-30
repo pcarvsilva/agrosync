@@ -15,9 +15,10 @@ if config_env() == :prod do
       """
 
   config :recomendation_front, RecomendationFront.Repo,
-    ssl: true,
+    ssl: false,
+    socket_options: [:inet6],
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    adapter: Ecto.Adapters.Postgres,
+    show_sensitive_data_on_connection_error: true,
     username: "postgres",
     password: "postgres",
     database: "database",
@@ -50,6 +51,7 @@ if config_env() == :prod do
   config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
     serializer: Commanded.Serialization.JsonSerializer,
     types: EventStore.PostgresTypes,
+    adapter: Ecto.Adapters.Postgres,
     username: "postgres",
     password: "postgres",
     database: "event_store",
