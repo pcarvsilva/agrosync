@@ -16,7 +16,6 @@ if config_env() == :prod do
 
   config :recomendation_front, RecomendationFront.Repo,
     ssl: false,
-    socket_options: [:inet6],
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     show_sensitive_data_on_connection_error: true,
     username: "postgres",
@@ -57,8 +56,6 @@ if config_env() == :prod do
     pool_size: 20,
     hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
     serializer: Oinc.Serialization.EncryptedJsonSerializer
-
-  raise "ERROR"
 
   # ## Using releases
   #
