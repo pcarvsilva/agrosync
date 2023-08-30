@@ -20,7 +20,8 @@ if config_env() == :prod do
     password: "postgres",
     database: "database",
     pool_size: 20,
-    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com"
+    hostname: "database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com",
+    ssl: false
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
