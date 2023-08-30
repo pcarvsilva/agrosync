@@ -15,8 +15,8 @@ if config_env() == :prod do
       """
 
   config :recomendation_front, RecomendationFront.Repo,
-    # ssl: true,
-    # socket_options: [:inet6],
+    ssl: true,
+    socket_options: [:inet6],
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
@@ -53,8 +53,7 @@ if config_env() == :prod do
   config :recomendation_front, RecomendationFront.Infrastructure.EventStore,
     serializer: Commanded.Serialization.JsonSerializer,
     url: event_store_url,
-    ssl: false,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+    ssl: true
 
   # ## Using releases
   #
