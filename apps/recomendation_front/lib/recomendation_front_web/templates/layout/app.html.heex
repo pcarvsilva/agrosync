@@ -1,0 +1,30 @@
+<%= if @conn.assigns[:current_user] do %>
+<div class="w-screen flex min-h-screen">
+  <div class="relative flex-grow">
+    <div class="bg-background h-16 sticky top-0 z-10"> </div>
+    <div class="bg-background h-40 absolute inset-0 flex-grow"> </div>
+    <div class="pt-10 flex-none">
+      <%= @inner_content %>
+    </div>
+  </div>
+</div>
+<% else %>
+
+<div class="static">
+  <div class="w-full absolute z-30 top-16">
+    <.alert
+      class="mt-1 fixed inset"
+      color="info"
+      label={get_flash(@conn, :info)}
+    />
+
+    <.alert
+      class="mt-1 fixed inset"
+      color="danger"
+      label={get_flash(@conn, :error)}
+    />
+  </div>
+</div>
+
+<%= @inner_content %>
+<% end %>

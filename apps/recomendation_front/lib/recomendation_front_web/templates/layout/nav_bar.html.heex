@@ -1,0 +1,10 @@
+<%= if @current_user == nil do %>
+<header class="fixed inset-0 z-30 h-12">
+
+ <nav class="navbar navbar-expand-lg shadow-md py-2 bg-white relative w-full px-2 grid justify-items-end">
+    <div class="w-full flex justify-end gap-2 h-12">
+        <.button label="Entrar" link_type="a" to={Routes.user_session_path(@conn, :new)}/>
+    </div>
+</nav>        
+</header>
+<% end %>
