@@ -12,8 +12,9 @@ if config_env() == :prod do
     url:
       "postgresql://postgres@postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/database",
     database: "database",
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    # The default PostgreSQL port
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
+  # The default PostgreSQL port
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -42,8 +43,9 @@ if config_env() == :prod do
     serializer: Commanded.Serialization.JsonSerializer,
     url:
       "postgresql://postgres:postgres@database.cbfv9kxxicuy.sa-east-1.rds.amazonaws.com/event_store",
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    # The default PostgreSQL port
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
+  # The default PostgreSQL port
 
   # ## Using releases
   #
