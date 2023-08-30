@@ -15,7 +15,7 @@ if config_env() == :prod do
       """
 
   config :recomendation_front, RecomendationFront.Repo,
-    ssl: false,
+    ssl: true,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     adapter: Ecto.Adapters.Postgres,
     username: "postgres",
