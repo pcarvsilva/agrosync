@@ -1,0 +1,29 @@
+<div class="relative overflow-hidden bg-no-repeat bg-cover h-screen">
+  <div class="absolute top-0 right-0 bottom-0 left-0 w-full h-full h-screen overflow-hidden">
+    <div class="grid grid-cols-2">
+      <div class="flex flex-col justify-center items-start col-start-2">
+        <div class="w-full flex justify-center">
+        <.card>
+          <.card_content>
+          <.h1 no_margin> Adicionar um usuário. </.h1>
+          <.form :let={f} for={@changeset} action={Routes.user_registration_path(@conn, :create)}>
+              <.form_field
+                type="email_input"
+                form={f}
+                field={:email}
+              />
+              <.form_field
+                type="password_input"
+                form={f}
+                field={:password}
+              />
+              <.button class="w-full rounded" type="submit" label="Criar Conta" />
+          </.form>
+           </.card_content>
+        </.card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
