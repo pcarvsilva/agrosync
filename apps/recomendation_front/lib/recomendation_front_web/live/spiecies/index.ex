@@ -1,6 +1,7 @@
 defmodule RecomendationFrontWeb.SpiciesIndexLive do
   use RecomendationFrontWeb, :live_view
-  alias RecomendationFront.Spicies.UseCases.{GetPaginatedSpicies, GetSpicie}
+  alias RecomendationFront.Spicies.Domain.Entities.{Stage, Stratum}
+  alias RecomendationFront.Spicies.UseCases.{GetPaginatedSpicies, GetSpicie, AddAgroFlorestryData}
 
   def handle_params(params, _uri, socket) do
     params =
@@ -61,6 +62,23 @@ defmodule RecomendationFrontWeb.SpiciesIndexLive do
      |> assign(selected: nil)}
   end
 
+  def handle_event("save", %{"add_agro_florestry_data" => params}, socket) do
+    params
+    |> Map.put("uuid", socket.assigns.selected.uuid)
+    |> AddAgroFlorestryData.execute()
+    |> case do
+      :ok ->
+        {:noreply,
+         socket
+         |> assign(selected: nil)}
+
+      {:error, changeset} ->
+        {:noreply,
+         socket
+         |> assign(changeset: changeset)}
+    end
+  end
+
   def handle_event("select", %{"uuid" => uuid}, socket) do
     spicie =
       %{
@@ -68,33 +86,57 @@ defmodule RecomendationFrontWeb.SpiciesIndexLive do
       }
       |> GetSpicie.execute()
 
+    changeset =
+      spicie
+      |> Map.from_struct()
+      |> AddAgroFlorestryData.new()
+
     {:noreply,
      socket
-     |> assign(selected: spicie)}
+     |> assign(selected: spicie)
+     |> assign(changeset: changeset)}
+  end
+
+  def agroflorest_fields(assigns) do
+    ~H"""
+      <.form :let={f} for={@changeset} phx-submit="save">
+      <.form_field
+          type="select"
+          options={[{"Não Classificado", nil} | Stratum.valid_types()]}
+          form={f}
+          field={:stratum}
+          label={"Estrato"}
+          disabled={@current_user.admin == false}
+      />
+      <.form_field
+          type="select"
+          options={[{"Não Classificado", nil} | Stage.valid_types()]}
+          form={f}
+          field={:stage}
+          label={"Estágio"}
+          disabled={@current_user.admin == false}
+      />
+      <%= if @current_user.admin  do%>
+        <div class="mt-5">
+        <.button class="w-full rounded" type="submit" label="Modificar" />
+      </div>
+      <% end %>
+    </.form>    
+    """
   end
 
   def selected_modal(assigns) do
     ~H"""
-    <.modal max_width="2xl">
+    <.modal max_width="xl">
       <div class="flex gap-4 h-2/3 mb-2">
-            <img class="w-2/3" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.F00dCf4bXxX0J-qEEf4qIQHaD6%26pid%3DApi&f=1&ipt=cebacfbc2aa329e900e94846bed25a70a487c7be854f270204267fea9ef9ec94&ipo=images" />
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.F00dCf4bXxX0J-qEEf4qIQHaD6%26pid%3DApi&f=1&ipt=cebacfbc2aa329e900e94846bed25a70a487c7be854f270204267fea9ef9ec94&ipo=images" />
             <div class="flex flex-col gap-2">
               <.h1 no_margin> <%= @selected.variety %> </.h1>
               <.h3 no_margin> <%= @selected.name %> </.h3>
-              <div class="flex gap-4 mt-8">
-                <.card_icon icon={:plus} color={"bg-primary-900"}/>
-                <div class="flex flex-col justify-center">
-                  <p> Placentária I </p>
-                </div>
-              </div>
-              <div class="flex gap-4">
-                <.card_icon icon={:plus} color={"bg-secondary-900"}/>
-                <div class="flex flex-col justify-center">
-                  <p> Extrato Emergente </p>
-                </div>
-              </div>
+              <.agroflorest_fields changeset={@changeset} current_user={@current_user} />
             </div>
       </div>
+      <%= unless Enum.empty?([]) do %>
       <div class= "p-2">
           <.h2> Consórcios </.h2>
           <div class="w-full h-full flex gap-2">
@@ -103,7 +145,7 @@ defmodule RecomendationFrontWeb.SpiciesIndexLive do
                   <Heroicons.chevron_left solid />
             </.icon_button>          </div>
           <div class="grid grid-cols-5 gap-2          <div class=">
-          <%= for c <- (["Feijão Milho Abóbora", "Feijão Milho Arroz"]) do %>
+          <%= for c <- [] do %>
               <.card >
                   <.card_media src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.F00dCf4bXxX0J-qEEf4qIQHaD6%26pid%3DApi&f=1&ipt=cebacfbc2aa329e900e94846bed25a70a487c7be854f270204267fea9ef9ec94&ipo=images" >
                   </.card_media>
@@ -119,6 +161,7 @@ defmodule RecomendationFrontWeb.SpiciesIndexLive do
           </div>
           </div>
       </div>
+      <% end %>
     </.modal>
 
     """
@@ -150,7 +193,9 @@ defmodule RecomendationFrontWeb.SpiciesIndexLive do
     <.container class="relative z-20 w-full">
     <div class="grid gap-4 grid-cols-4 w-full">
         <%= for s <- @species do %>
-          <a class="hover:scale-105" >  
+          <a class="hover:scale-105"
+              phx-value-uuid={s.uuid}
+              phx-click={"select"}>
             <.card >
                 <.card_media src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.F00dCf4bXxX0J-qEEf4qIQHaD6%26pid%3DApi&f=1&ipt=cebacfbc2aa329e900e94846bed25a70a487c7be854f270204267fea9ef9ec94&ipo=images" >
                 </.card_media>
@@ -174,7 +219,7 @@ defmodule RecomendationFrontWeb.SpiciesIndexLive do
     </.container>
 
     <%= if @selected do %>
-      <.selected_modal selected={@selected} />
+      <.selected_modal selected={@selected} changeset={@changeset} current_user={@current_user}/>
     <% end %>
     """
   end

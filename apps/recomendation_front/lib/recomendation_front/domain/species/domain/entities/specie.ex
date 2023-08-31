@@ -10,8 +10,17 @@ defmodule RecomendationFront.Spicies.Domain.Entities.Spicie do
 
   alias __MODULE__
 
-  alias RecomendationFront.Spicies.Domain.Commands.CreateSpicie
-  alias RecomendationFront.Spicies.Domain.Events.SpiecieCreated
+  alias RecomendationFront.Spicies.Domain.Commands.{
+    CreateSpicie,
+    AddStratumToSpicies,
+    AddStageToSpicies
+  }
+
+  alias RecomendationFront.Spicies.Domain.Events.{
+    SpiecieCreated,
+    StageAddedToSpicie,
+    StratumAddedToSpicie
+  }
 
   def execute(%Spicie{uuid: nil}, %CreateSpicie{} = command) do
     %SpiecieCreated{
@@ -24,6 +33,24 @@ defmodule RecomendationFront.Spicies.Domain.Entities.Spicie do
 
   def execute(%Spicie{}, %CreateSpicie{}), do: {:error, :already_registered}
 
+  def execute(%Spicie{uuid: nil}, %AddStratumToSpicies{}), do: {:error, :spicie_not_found}
+
+  def execute(%Spicie{}, %AddStratumToSpicies{} = command) do
+    %StratumAddedToSpicie{
+      uuid: command.uuid,
+      stratum: command.stratum
+    }
+  end
+
+  def execute(%Spicie{uuid: nil}, %AddStageToSpicies{}), do: {:error, :spicie_not_found}
+
+  def execute(%Spicie{}, %AddStageToSpicies{} = command) do
+    %StageAddedToSpicie{
+      uuid: command.uuid,
+      stage: command.stage
+    }
+  end
+
   def apply(_, %SpiecieCreated{} = evt) do
     %Spicie{
       uuid: evt.uuid,
@@ -32,4 +59,6 @@ defmodule RecomendationFront.Spicies.Domain.Entities.Spicie do
       cultivation_days: evt.cultivation_days
     }
   end
+
+  def apply(s, _), do: s
 end

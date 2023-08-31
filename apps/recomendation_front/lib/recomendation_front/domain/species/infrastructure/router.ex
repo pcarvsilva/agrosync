@@ -2,7 +2,13 @@ defmodule RecomendationFront.Infrastructure.Spicies.Router do
   use Commanded.Commands.Router
 
   alias RecomendationFront.Spicies.Domain.Entities.{Spicie, CropSchedule}
-  alias RecomendationFront.Spicies.Domain.Commands.{CreateSpicie, ScheduleCrop}
+
+  alias RecomendationFront.Spicies.Domain.Commands.{
+    CreateSpicie,
+    ScheduleCrop,
+    AddStratumToSpicies,
+    AddStageToSpicies
+  }
 
   identify(Spicie,
     by: :uuid,
@@ -14,6 +20,6 @@ defmodule RecomendationFront.Infrastructure.Spicies.Router do
     prefix: "crop-schedule-"
   )
 
-  dispatch(CreateSpicie, to: Spicie)
+  dispatch([AddStratumToSpicies, AddStageToSpicies, CreateSpicie], to: Spicie)
   dispatch(ScheduleCrop, to: CropSchedule)
 end

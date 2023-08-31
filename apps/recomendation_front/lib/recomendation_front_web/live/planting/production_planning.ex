@@ -165,7 +165,7 @@ defmodule RecomendationFrontWeb.ProductionPlanningLive do
   def schedule_crop_modal(assigns) do
     ~H"""
     <.modal max_width="md" title="Agendar Plantio">
-       <.form :let={f} for={@changeset} phx-change="validate" phx-submit="save">
+    <.form :let={f} for={@changeset} phx-change="validate" phx-submit="save">
            <.form_field
                type="select"
                options={[{"Escolha uma espécie", nil}] ++ (@species |> Enum.map(fn a -> {a.variety, a.uuid} end))}
