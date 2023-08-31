@@ -150,14 +150,10 @@ defmodule RecomendationFrontWeb.SpiciesIndexLive do
     <.container class="relative z-20 w-full">
     <div class="grid gap-4 grid-cols-4 w-full">
         <%= for s <- @species do %>
-          <a class="hover:scale-105" phx-click={"select"} phx-value-uuid={s.uuid}>
+          <a class="hover:scale-105" >  
             <.card >
                 <.card_media src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.F00dCf4bXxX0J-qEEf4qIQHaD6%26pid%3DApi&f=1&ipt=cebacfbc2aa329e900e94846bed25a70a487c7be854f270204267fea9ef9ec94&ipo=images" >
                 </.card_media>
-                <div class="-mt-6 flex w-full px-4 justify-end gap-2">
-                  <.card_icon icon={:plus} color={"bg-primary-900"}/>
-                  <.card_icon icon={:plus} color={"bg-secondary-900"}/>
-                </div>
                 <.card_content  class="max-w-sm py-2 px-3" heading={s.variety}> 
                 </.card_content>
             </.card>
