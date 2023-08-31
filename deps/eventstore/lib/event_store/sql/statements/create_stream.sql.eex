@@ -1,3 +1,0 @@
-INSERT INTO <%= schema %>.streams (stream_uuid)
-VALUES ($1)
-RETURNING stream_id;

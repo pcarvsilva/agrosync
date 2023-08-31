@@ -1,2 +1,0 @@
-DELETE FROM <%= schema %>.subscriptions
-WHERE stream_uuid = $1 AND subscription_name = $2;

@@ -1,4 +1,0 @@
-# Agrosync
-
-**TODO: Add description**
-

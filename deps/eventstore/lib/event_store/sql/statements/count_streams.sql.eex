@@ -1,3 +1,0 @@
-SELECT COUNT(*)
-FROM <%= schema %>.streams
-WHERE $1::text IS NULL OR stream_uuid LIKE $1::text;
