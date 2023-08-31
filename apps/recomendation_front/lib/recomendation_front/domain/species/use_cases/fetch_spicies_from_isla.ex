@@ -9,13 +9,21 @@ defmodule RecomendationFront.Spicies.UseCases.FetchSpiciesFromIsla do
     File.stream!(path)
     |> CSV.decode!()
     |> Stream.map(fn row ->
-      CreateSpicie.execute(%{
+      %{
         "variety" => row |> Enum.at(1) |> String.downcase() |> Macro.camelize(),
         "name" => row |> Enum.at(3) |> String.downcase(),
-        "cultivation_days" => row |> Enum.at(8) |> Integer.parse() |> elem(0)
-      })
+        "cultivation_days" =>
+          row
+          |> Enum.at(8)
+          |> Integer.parse()
+          |> case do
+            {n, _} -> n
+            n -> n
+          end
+      }
+      |> CreateSpicie.execute()
     end)
     |> Stream.filter(fn a -> a != :ok end)
-    |> Enum.map(fn a -> raise inspect(a) end)
+    |> Enum.to_list()
   end
 end
