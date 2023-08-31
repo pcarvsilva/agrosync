@@ -10,9 +10,8 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :recomendation_front, RecomendationFrontWeb.Endpoint,
-  port: 80,
   cache_static_manifest: "priv/static/cache_manifest.json",
-  url: [host: "ec2-15-228-161-146.sa-east-1.compute.amazonaws.com"]
+  url: [host: "ec2-15-228-161-146.sa-east-1.compute.amazonaws.com", port: 80]
 
 # Do not print debug messages in production
 config :logger, level: :info
